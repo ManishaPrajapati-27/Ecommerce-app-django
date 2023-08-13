@@ -1,0 +1,40 @@
+<!-- Base Template File -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %} {% endblock title %}</title>
+    <!-- Links -->
+    {% include './includes/links.html' %}
+
+    <!-- Block Links -->
+    {% block links %} {% endblock links %}
+</head>
+
+<body>
+    <!-- Header -->
+    {% include './includes/header.html' %}
+
+    <!-- Messages -->
+    {% include './includes/messages.html' %}
+
+    <!-- Block Content -->
+    {% block content %} {% endblock content %}
+
+    <!-- Footer -->
+    {% include './includes/footer.html' %}
+
+    <!-- Scripts -->
+    {% include './includes/scripts.html' %}
+
+    <!-- Block Scripts -->
+    {% block scripts %} {% endblock scripts %}
+</body>
+
+</html>

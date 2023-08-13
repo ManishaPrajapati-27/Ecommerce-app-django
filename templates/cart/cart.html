@@ -1,0 +1,223 @@
+{% extends "../base.html" %}
+
+{% block title %} Cart {% endblock title %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- cart Page -->
+<section class="section cart-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="cart-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">QTY</th>
+                                <!-- <th scope="col">Subtotal</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% comment %} {% for cart_item in cart.cart_items.product.all %}
+                            <tr>
+                                <td>Test</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="cart-item">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="image">
+                                                <img src="/media/{{ cart_item.product.product_images.first.image }}"
+                                                    alt="product" />
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="text">
+                                                <h4>{{ cart_item.product.product_name }}</h4>
+                                                {% if cart_item.size_variant %}
+                                                <p class="text-muted small">
+                                                    Size: {{ cart_item.size_variant.size_name }}
+                                                </p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 class="price">
+                                        <i class="far fa-rupee-sign"></i> {{
+                                        cart_item.get_product_price }}.00
+                                    </h5>
+                                </td>
+                                <td>
+                                    <div class="quantity-field">
+                                        <div class="value-button" id="decrease" onclick="decreaseValue()"
+                                            value="Decrease Value">
+                                            -
+                                        </div>
+                                        <input type="number" id="number" value="0" />
+                                        <div class="value-button" id="increase" onclick="increaseValue()"
+                                            value="Increase Value">
+                                            +
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- <td>
+                    <h5 class="price"><i class="far fa-rupee-sign"></i> 200.00</h5>
+                  </td> -->
+                                <td>
+                                    <h5>
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        <a href="{% url 'remove_cart' cart_item.uid %}"><i class="far fa-times"></i></a>
+                                    </h5>
+                                </td>
+                            </tr>
+                            {% endfor %} {% endcomment %}
+
+                            {% for item in cart %}
+                            {% for i in item.cart_items.all %}
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="image">
+                                                <img src="/media/{{ i.product.product_images.first.image }}"
+                                                    alt="product" />
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="text">
+                                                <h4>{{ i.product.product_name }}</h4>
+                                                {% if i.size_variant %}
+                                                <p class="text-muted small">
+                                                    Size: {{ i.size_variant.size_name }}
+                                                </p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- <td>{{ i.product.product_name }}</td> -->
+                                <td>
+                                    <h5 class="price">
+                                        <i class="far fa-rupee-sign"></i> {{ i.product.price }}.00
+                                    </h5>
+                                </td>
+                                <td>
+                                    <form class="quantity-field mb-4">
+                                        <div class="d-flex align-items-center qf">
+                                            <div class="value-button" id="decrease" onclick="decreaseValue()"
+                                                value="Decrease Value">
+                                                -
+                                            </div>
+                                            <input type="number" id="number" class="number" value="1" />
+                                            <div class="value-button" id="increase" onclick="increaseValue()"
+                                                value="Increase Value">
+                                                +
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
+                                <!-- <td>{{ i.product.price }}</td> -->
+                                <!-- <td>{{ i.product.count }}</td> -->
+                                <td>
+                                    <h5>
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        <a href="{% url 'remove_cart' i.uid %}"><i class="far fa-times"></i></a>
+                                    </h5>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            {% empty %}
+                            <tr>
+                                <td>No Items in Cart</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="cart-details">
+                    <h4>Cart Totals</h4>
+                    <div class="shipping-tax">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <h5>Shipping Information</h5>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>This is the first item's accordion body.</strong> It
+                                        is shown by default, until the collapse plugin adds the
+                                        appropriate classes that we use to style each element. These
+                                        classes control the overall appearance, as well as the
+                                        showing and hiding via CSS transitions. You can modify any
+                                        of this with custom CSS or overriding our default variables.
+                                        It's also worth noting that just about any HTML can go
+                                        within the <code>.accordion-body</code>, though the
+                                        transition does limit overflow.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shipping-tax">
+                        <div class="d-flex justify-content-between">
+                            <h5>Shipping (Free)</h5>
+                            <h5 class="price"><i class="far fa-rupee-sign"></i> 200.00</h5>
+                        </div>
+                    </div>
+                    <div class="shipping-tax">
+                        <div class="d-flex justify-content-between">
+                            <h5>Order Total</h5>
+                            <h5 class="price">
+                                <i class="far fa-rupee-sign"></i> {{ cart.get_cart_total }}.00
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="check py-4">
+                        <a href="#" class="w-100 button text-center">Proceed To Checkout</a>
+                    </div>
+                    <form action="" method="POST" class="coupon">
+                        {% include 'includes/messages.html' %}
+                        {% csrf_token %}
+                        <div class="check">
+                            <input class="form-control" name="coupon" type="text" placeholder="Coupon Code"
+                                aria-label="default input example" />
+                        </div>
+                        <div class="check py-4">
+                            <button type="submit" class="w-100 button text-center">Apply For Coupon</button>
+                        </div>
+                        {% if cart.coupon %}
+                        <div class="check py-4">
+                            <a href="{% url 'remove_coupon' cart.uid %}" type="submit"
+                                class="w-100 button text-center">{{ cart.coupon.coupon_code }}</a>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
