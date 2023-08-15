@@ -55,7 +55,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: var(--light);
+  background: var(--light-alt);
   font-family: var(--sans-serif);
   overflow-x: hidden;
   position: relative;
@@ -153,26 +153,32 @@ p a:hover {
 .alert {
   border: 0;
   border-radius: 4px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  max-width: 400px;
+  z-index: 20;
+  color: var(--light);
 }
 
 .alert.alert-error {
-  background: #e3393963 !important;
-  color: #e33939 !important;
+  background: #e33939 !important;
+  /* color: #e33939 !important; */
 }
 
 .alert.alert-success {
-  background: #96ae0054;
-  color: var(--primary);
+  background: #97ae00;
+  /* color: var(--primary); */
 }
 
 .alert.alert-primary {
-  background: #2d2a6e54;
-  color: var(--primary);
+  background: #2d2a6e;
+  /* color: var(--primary); */
 }
 
 .alert.alert-warning {
-  background: #ffb40054;
-  color: #ffb400;
+  background: #ffb300;
+  /* color: #ffb400; */
 }
 
 /* Section */
