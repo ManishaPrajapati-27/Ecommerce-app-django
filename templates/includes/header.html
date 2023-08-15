@@ -2,7 +2,7 @@
 
 <!-- Header -->
 <header class="header">
-    <!-- <div class="search py-5">
+    <div class="search py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 mx-auto">
@@ -11,10 +11,11 @@
                         <input type="text" class="form-control" placeholder="Search Products">
                         <i class="far fa-search"></i>
                     </div>
+                    <button class="close"><i class="far fa-times"></i></button>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="upper-nav">
         <div class="container">
             <div class="row">
@@ -66,12 +67,25 @@
                 </ul>
 
                 <div class="icons ms-auto">
-                    <a href="#"><i class="far fa-search"></i></a>
-                    <a href="#"><i class="far fa-user"></i></a>
-                    <a href="#"><i class="far fa-heart"></i></a>
+                    <a href="#" class="search-icon ic"><i class="far fa-search"></i></a>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle ic" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="far fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Sign In</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <a href="#"><i class="far fa-user"></i></a> -->
+                    <a href="#" class="ic"><i class="far fa-heart"></i></a>
                     {% comment %} {{ request.user.profile.get_cart_count }} {% endcomment%}
 
-                    <a href="{% url 'cart' %}" class="icon-notify"><i class="far fa-shopping-cart"></i><span
+                    <a href="{% url 'cart' %}" class="icon-notify ic"><i class="far fa-shopping-cart"></i><span
                             class="notify">{{ request.user.account.get_cart_count }}</span></a>
                 </div>
             </div>

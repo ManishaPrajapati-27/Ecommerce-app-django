@@ -42,18 +42,18 @@ $(document)
 
 // Product Increase and decrease button
 function increaseValue() {
-  var value = parseInt(document.getElementById('number').value, 10);
+  var value = parseInt(document.getElementById("number").value, 10);
   value = isNaN(value) ? 0 : value;
   value++;
-  document.getElementById('number').value = value;
+  document.getElementById("number").value = value;
 }
 
 function decreaseValue() {
-  var value = parseInt(document.getElementById('number').value, 10);
+  var value = parseInt(document.getElementById("number").value, 10);
   value = isNaN(value) ? 0 : value;
-  value < 1 ? value = 1 : '';
+  value < 1 ? (value = 1) : "";
   value--;
-  document.getElementById('number').value = value;
+  document.getElementById("number").value = value;
 }
 
 // Splide Js Product Carousel
@@ -131,17 +131,34 @@ function activateThumbnail(thumbnailButton) {
   thumbnailButton.setAttribute("aria-current", true);
 }
 
-
 // Zoom Image On Hover
 var options1 = {
   // width: 400,
   // zoomWidth: 500,
-  offset: {vertical: 0, horizontal: 10}
+  offset: { vertical: 0, horizontal: 10 },
 };
 
 // If the width and height of the image are not known or to adjust the image to the container of it
 var options2 = {
   fillContainer: true,
-  offset: {vertical: 0, horizontal: 10}
+  offset: { vertical: 0, horizontal: 10 },
 };
 new ImageZoom(document.getElementById("img-container"), options2);
+
+// Search
+
+const searchAny = () => {
+  const header = document.querySelector(".header");
+  const search = document.querySelector(".search-icon");
+  const close = document.querySelector(".close");
+
+  const clickEvent = () => {
+    header.classList.toggle("search-active");
+    header.classList.toggle("search-close");
+  };
+
+  search.addEventListener("click", clickEvent);
+  close.addEventListener("click", clickEvent);
+};
+
+searchAny();
